@@ -1138,3 +1138,76 @@ git log --oneline -2
 ```
 
 两个 commit 都只在本机；确认后才将它们一起 push 到 GitHub。
+
+### 实际完成结果
+
+你运行了：
+
+```bash
+git add plan/github_plan.md
+git commit -m "Document initial Git workflow"
+```
+
+并成功创建第二次本地 commit：
+
+```text
+8b476c5 Document initial Git workflow
+9da71b6 Initial Highlight Palette plugin
+```
+
+`git status --short` 没有输出，表示没有未提交的修改；第 13 步完成。
+
+## 第 14 步：首次 push 到 GitHub（下一步）
+
+### 什么是 push？
+
+前面的 commit 是保存在本机的历史快照。`git push` 会把这些已经保存的 commit 发送到 GitHub 远程仓库，形成在线备份和项目页面。
+
+你的仓库已经配置了远程名称 `origin`，它指向：
+
+```text
+git@github.com:momo060/obsidian_highlight.git
+```
+
+### 提交前最后确认
+
+可先运行：
+
+```bash
+git remote -v
+```
+
+应看到上面的 GitHub 地址作为 fetch 和 push 地址。
+
+### 要执行的命令
+
+```bash
+git push -u origin main
+```
+
+含义：
+
+- `git push`：上传本地 commit；
+- `origin`：GitHub 远程仓库的简称；
+- `main`：当前要上传的本地分支；
+- `-u`：把本地 `main` 与 GitHub 的 `origin/main` 关联起来。以后在这个分支上通常只需运行 `git push`。
+
+如果终端询问 SSH 密码、钥匙密码或 GitHub 登录信息，按你自己的账户提示完成；不要把密码或 token 发送到聊天中。
+
+### 如何验证
+
+push 成功时，终端通常会出现类似：
+
+```text
+To github.com:momo060/obsidian_highlight.git
+ * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
+```
+
+然后在浏览器打开：
+
+```text
+https://github.com/momo060/obsidian_highlight
+```
+
+应该能看到 README 的项目首页、源码和两次 commit。第 14 步完成后，正式源码就已安全上传 GitHub。
