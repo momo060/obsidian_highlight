@@ -990,3 +990,151 @@ A  README.md
 `A` 表示 Added（已加入暂存区）。注意 `A` 后通常有两个空格；Git 状态的第一个位置表示暂存区状态，第二个位置表示暂存之后又有没有额外修改。
 
 本步骤仍然不会创建 commit，也不会上传 GitHub。看到暂存清单后，我们会再次检查它，才进行第一次 commit。
+
+### 实际完成结果
+
+你运行了：
+
+```bash
+git add .
+git status --short
+```
+
+所有应提交的文件都以 `A` 开头，表示 Added（已加入暂存区）。清单包含源码、配置、README、LICENSE 和计划文档；不包含 `node_modules/`、`main.js`、vault 配置或临时文件；第 10 步完成。
+
+## 第 11 步：提交前最后预览（下一步）
+
+### 为什么要做
+
+现在文件已经在暂存区，下一条 `git commit` 会把它们保存为不可随意混淆的历史快照。提交前先看一次摘要，是一个很好的习惯：它不修改文件，只让你确认“这张快照大概包含哪些变化”。
+
+### 要执行的命令
+
+```bash
+git diff --cached --stat
+```
+
+含义：
+
+- `git diff`：查看差异；
+- `--cached`：查看暂存区中的差异；
+- `--stat`：只显示每个文件的行数统计，不显示长篇代码内容。
+
+### 预期结果
+
+输出会列出约 17 个文件及各自新增的行数，末尾有总计。应包括 `src/main.ts`、`src/highlight.ts`、`README.md`、`manifest.json`、`package.json` 和 `plan/`；不应包含 `node_modules/` 或 `main.js`。
+
+确认无误后，下一步会创建第一次本地 commit。commit 仍然只保存在你的电脑上；之后才会执行 `git push` 上传 GitHub。
+
+### 实际完成结果
+
+你运行了：
+
+```bash
+git diff --cached --stat
+```
+
+预览显示 17 个文件、7007 行新增内容。`package-lock.json` 的 5053 行是 npm 记录精确依赖版本的正常结果；其余是插件源码、配置、README、LICENSE 和学习计划。预览没有包含 `node_modules/` 或 `main.js`；第 11 步完成。
+
+## 第 12 步：创建第一次本地 commit（下一步）
+
+### 什么是 commit？
+
+commit 就是给项目当前状态拍一张带说明文字的“历史快照”。它先保存在你的 Mac 上，不会自动上传到 GitHub。
+
+这张快照会包含已经暂存的 17 个文件，并且以后你可以查看、比较或回到这个版本。
+
+### 要执行的命令
+
+```bash
+git commit -m "Initial Highlight Palette plugin"
+```
+
+其中：
+
+- `git commit`：创建本地历史快照；
+- `-m`：message（说明文字）；
+- 引号中的英文是这张快照的标题，含义为“初始版 Highlight Palette 插件”。
+
+### 如何检查
+
+提交成功后运行：
+
+```bash
+git status --short
+```
+
+预期没有任何输出，表示工作目录干净：当前所有需要记录的变更已经保存在本地 Git 历史中。
+
+可再运行：
+
+```bash
+git log --oneline -1
+```
+
+预期会看到一行由短提交编号和 `Initial Highlight Palette plugin` 组成的记录。
+
+本步骤仍然不上传 GitHub。确认本地 commit 成功后，下一步才是 `git push`。
+
+### 实际完成结果
+
+你运行了：
+
+```bash
+git commit -m "Initial Highlight Palette plugin"
+```
+
+并成功创建第一次本地 commit：
+
+```text
+9da71b6 Initial Highlight Palette plugin
+```
+
+`git log --oneline -1` 已确认该快照位于当前 `main` 分支；第 12 步完成。
+
+提交后 `git status --short` 显示：
+
+```text
+M plan/github_plan.md
+```
+
+这里的 `M` 表示 Modified（已修改）。原因是首次 `git add .` 后，我们又把第 11、12 步说明写入了这份计划文件；它没有丢失，也不表示第一次 commit 失败。我们会把这份新增说明作为一个单独的小 commit 保存。
+
+## 第 13 步：提交最新计划记录（下一步）
+
+### 为什么要做
+
+第一次 commit 已经安全保存了插件代码。现在只有 `plan/github_plan.md` 在之后被补充；为保持 GitHub 中的学习记录完整，将它单独提交是最容易理解且最安全的做法。
+
+### 要执行的命令
+
+```bash
+git add plan/github_plan.md
+```
+
+```bash
+git commit -m "Document initial Git workflow"
+```
+
+### 如何检查
+
+```bash
+git status --short
+```
+
+预期没有任何输出。
+
+再查看最近两次快照：
+
+```bash
+git log --oneline -2
+```
+
+预期会看到：
+
+```text
+<新的编号> Document initial Git workflow
+9da71b6 Initial Highlight Palette plugin
+```
+
+两个 commit 都只在本机；确认后才将它们一起 push 到 GitHub。
