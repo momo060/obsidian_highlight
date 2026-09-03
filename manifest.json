@@ -1,0 +1,10 @@
+{
+  "id": "highlight-palette",
+  "name": "Highlight Palette",
+  "version": "0.1.0",
+  "minAppVersion": "1.13.0",
+  "description": "Apply colors to selected text.",
+  "author": "elinam",
+  "authorUrl": "https://github.com/momo060",
+  "isDesktopOnly": false
+}
